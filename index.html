@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="js/script.js"></script> -->
+    <title>Bank Account Application</title>
+</head>
+
+<body>
+    <h1>Welcome to your bank</h1>
+    <form action="account.html">
+        <label for="userName">Select the User Account</label>
+        <select id="userName">
+            <option value="user1">John Doe</option>
+            <option value="user2">Jane Doe</option>
+        </select>
+        <div>
+            <button id="userSelectBtn" type="submit">Access Account</button>
+        </div>
+    </form>
+
+    <script>
+        let $ = (id) => {
+            return window.document.getElementById(id);
+        }
+        
+        $('userSelectBtn').addEventListener("click", function() {
+            console.log("I am in here")
+            sessionStorage.setItem("userChoice", $('userName').value);
+        })
+        
+    </script>
+   
+</body>
+
+</html>
