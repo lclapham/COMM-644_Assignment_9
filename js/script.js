@@ -12,33 +12,50 @@ let user2 = "Jane Doe";
 let userSelection = sessionStorage.getItem("userChoice");
 let tr;
 let idNum;
+let userArr = [];
+let arr;
+let size;
+let updatedBalance;
 
 // Set the select
+let $ = (id) => {
+    return window.document.getElementById(id);
+}
 
 
 // Run the program---
 window.addEventListener('load', () => {
     console.log(userSelection)
+    if (userSelection === "user1") {
+        $('userName').innerHTML = "John Doe";
+    } else {
+        $('userName').innerHTML = "Jane Doe";
+    }
+getUserAccountInfo();
+
+    createRows(arr);
+
+
 
 });
 
 // Creates programmtic approach to rows 
 function createRows(arr) {
-    for(let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         // Create the row element
-    let tr = document.createElement('tr');
+        let tr = document.createElement('tr');
+        console.log("in create rows "+i)
+        //set tr id with iterated number/use as a reference 
+        tr.id = "row" + i;
 
-    //set tr id with iterated number/use as a reference 
-    tr.id = "row" + i;
+        // Insert row in 'myTable' on document
+        myTable.appendChild(tr);
 
-    // Insert row in 'myTable' on document
-    myTable.appendChild(tr);
-
-    createTableData( tr.id, 0, userOneAccountBalance);
+        createTableData(tr.id, i, arr);
 
     }
-    
-    
+
+
 }
 
 // function createTableData(inventory, idNum) {
@@ -53,7 +70,7 @@ function createTableData(tr, idNum, arr) {
     let balance = document.createElement('td');
 
     // Get the specific table row
-   tr = document.getElementById(tr);
+    tr = document.getElementById(tr);
 
     // Add the html from the inventory array
 
@@ -71,7 +88,57 @@ function createTableData(tr, idNum, arr) {
     tr.appendChild(withdraw);
     tr.appendChild(amount2);
     tr.appendChild(balance);
-    
+
 }
 
+// The date function
+function getToday() {
+    let d = new Date();
+    let year = d.getFullYear();
+    let day = d.getDay();
+    let month = d.getMonth() + 1;
+    let today = month + "/" + day + "/" + year;
+    return today;
+}
+
+function getUserAccountInfo() {
+    //Determine which user account and how big the array is
+    if (userSelection === "user1") {
+        arr = userOneAccountBalance;
+        size = userOneAccountBalance.length;
+    } else {
+        arr = userTwoAccountBalance;
+        size = userTwoAccountBalance.length;
+    }
+
+}
+
+function calculateBalance(amount) {
+    console.log("This is size "+size)
+    console.log(arr)
+    console.log("This is the arr "+ arr[size - 1])
+    updatedBalance = arr[size -1][5] + amount;
+    console.log("This is it " + updatedBalance.toFixed(2));
+}
+
+// Event listeners for the Manage account feature
+
+$('userDeposit').addEventListener("click", function () {
+
+    getUserAccountInfo();
+    // Get the ammoun that the user inputed in the text box
+    let depAmount = parseFloat($('amount').value);
+    console.log(depAmount)
+    calculateBalance(depAmount);
+
+
+    userArr.push(getToday(), "Deposit", depAmount, "", "", updatedBalance)
+    arr.push(userArr);
+    
+
+})
+
+$('userWithdraw').addEventListener("click", function () {
+    console.log("withdraw")
+})
 

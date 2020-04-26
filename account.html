@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Account Summary</h1>
-    <P>User Account Name: </P>
+    <P>User Account Name: <span style="font-weight: bold;" id="userName"></span></P>
     <div id="rowCount"></div>
     <section>
         <table id='myTable'>
@@ -22,6 +22,15 @@
             </tr>
             
         </table>
+    </section>
+
+    <section>
+        <h2>Manage Account</h2>
+        <label for="amount">Input amount: </label>
+        <input type="text" name="" id="amount">
+        
+        <input type="button" id="userDeposit" value="Deposit">
+        <input type="button" id="userWithdraw" value="Withdraw">
     </section>
 
 
