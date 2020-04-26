@@ -58,6 +58,21 @@ function createRows(arr) {
 
 }
 
+function appendRow(arr){
+    let setIndex = arr.length -1;
+    tr = document.createElement('tr');
+        
+        //set tr id with iterated number/use as a reference 
+        tr.id = "row" + setIndex;
+
+        // Insert row in 'myTable' on document
+        myTable.appendChild(tr);
+        createTableData(tr.id, setIndex, arr);
+
+
+
+}
+
 // function createTableData(inventory, idNum) {
 function createTableData(tr, idNum, arr) {
 
@@ -113,13 +128,19 @@ function getUserAccountInfo() {
 
 }
 
-function calculateBalance(amount) {
-    console.log("This is size "+size)
-    console.log(arr)
-    console.log("This is the arr "+ arr[size - 1])
+// For Deposit
+function depositBalance(amount) {
     updatedBalance = arr[size -1][5] + amount;
     console.log("This is it " + updatedBalance.toFixed(2));
 }
+
+// For withdraw
+function depositBalance(amount) {
+    updatedBalance = arr[size -1][5] + amount;
+    console.log("This is it " + updatedBalance.toFixed(2));
+}
+
+
 
 // Event listeners for the Manage account feature
 
@@ -129,16 +150,39 @@ $('userDeposit').addEventListener("click", function () {
     // Get the ammoun that the user inputed in the text box
     let depAmount = parseFloat($('amount').value);
     console.log(depAmount)
-    calculateBalance(depAmount);
+    depositBalance(depAmount);
 
-
-    userArr.push(getToday(), "Deposit", depAmount, "", "", updatedBalance)
+    console.log("Hello this is the updated balance: "+updatedBalance)
+    userArr.push(getToday(), "Deposit", depAmount, "", 0.00, updatedBalance)
     arr.push(userArr);
+
+    //Clear out the temp storage array
+    userArr = [];
+    
+    appendRow(arr);
     
 
 })
 
 $('userWithdraw').addEventListener("click", function () {
     console.log("withdraw")
+
+    getUserAccountInfo();
+    // Get the ammoun that the user inputed in the text box
+    let depAmount = parseFloat($('amount').value);
+    console.log(depAmount)
+    calculateBalance(depAmount);
+
+    console.log("Hello this is the updated balance: "+updatedBalance)
+    userArr.push(getToday(), "Deposit", depAmount, "", 0.00, updatedBalance)
+    arr.push(userArr);
+
+    //Clear out the temp storage array
+    userArr = [];
+    
+    appendRow(arr);
+    
+
 })
+
 
