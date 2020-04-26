@@ -135,8 +135,8 @@ function depositBalance(amount) {
 }
 
 // For withdraw
-function depositBalance(amount) {
-    updatedBalance = arr[size -1][5] + amount;
+function withdrawBalance(amount) {
+    updatedBalance = arr[size -1][5] - amount;
     console.log("This is it " + updatedBalance.toFixed(2));
 }
 
@@ -171,10 +171,10 @@ $('userWithdraw').addEventListener("click", function () {
     // Get the ammoun that the user inputed in the text box
     let depAmount = parseFloat($('amount').value);
     console.log(depAmount)
-    calculateBalance(depAmount);
+    withdrawBalance(depAmount);
 
     console.log("Hello this is the updated balance: "+updatedBalance)
-    userArr.push(getToday(), "Deposit", depAmount, "", 0.00, updatedBalance)
+    userArr.push(getToday(), "", 0.00, "Withdraw", depAmount , updatedBalance)
     arr.push(userArr);
 
     //Clear out the temp storage array
