@@ -17,34 +17,17 @@ let arr;
 let size;
 let updatedBalance;
 
-// Set the select
+// Set up to find all of the id's
 let $ = (id) => {
     return window.document.getElementById(id);
 }
-
-
-// Run the program---
-window.addEventListener('load', () => {
-    console.log(userSelection)
-    if (userSelection === "user1") {
-        $('userName').innerHTML = "John Doe";
-    } else {
-        $('userName').innerHTML = "Jane Doe";
-    }
-getUserAccountInfo();
-
-    createRows(arr);
-
-
-
-});
 
 // Creates programmtic approach to rows 
 function createRows(arr) {
     for (let i = 0; i < arr.length; i++) {
         // Create the row element
         let tr = document.createElement('tr');
-        console.log("in create rows "+i)
+        console.log("in create rows " + i)
         //set tr id with iterated number/use as a reference 
         tr.id = "row" + i;
 
@@ -54,23 +37,18 @@ function createRows(arr) {
         createTableData(tr.id, i, arr);
 
     }
-
-
 }
 
-function appendRow(arr){
-    let setIndex = arr.length -1;
+function appendRow(arr) {
+    let setIndex = arr.length - 1;
     tr = document.createElement('tr');
-        
-        //set tr id with iterated number/use as a reference 
-        tr.id = "row" + setIndex;
 
-        // Insert row in 'myTable' on document
-        myTable.appendChild(tr);
-        createTableData(tr.id, setIndex, arr);
+    //set tr id with iterated number/use as a reference 
+    tr.id = "row" + setIndex;
 
-
-
+    // Insert row in 'myTable' on document
+    myTable.appendChild(tr);
+    createTableData(tr.id, setIndex, arr);
 }
 
 // function createTableData(inventory, idNum) {
@@ -104,6 +82,9 @@ function createTableData(tr, idNum, arr) {
     tr.appendChild(amount2);
     tr.appendChild(balance);
 
+    // Set initial Avail Balance
+    $('availBal').innerHTML = "$"+arr[idNum][5].toFixed(2);
+
 }
 
 // The date function
@@ -115,6 +96,7 @@ function getToday() {
     let today = month + "/" + day + "/" + year;
     return today;
 }
+
 
 function getUserAccountInfo() {
     //Determine which user account and how big the array is
@@ -128,16 +110,22 @@ function getUserAccountInfo() {
 
 }
 
+// Available Balance
+function availBal() {
+    $('availBal').innerHTML = "$" + updatedBalance.toFixed(2);
+}
+
 // For Deposit
 function depositBalance(amount) {
-    updatedBalance = arr[size -1][5] + amount;
-    console.log("This is it " + updatedBalance.toFixed(2));
+    updatedBalance = arr[size - 1][5] + amount;
+    availBal();
+
 }
 
 // For withdraw
 function withdrawBalance(amount) {
-    updatedBalance = arr[size -1][5] - amount;
-    console.log("This is it " + updatedBalance.toFixed(2));
+    updatedBalance = arr[size - 1][5] - amount;
+    availBal();
 }
 
 
@@ -149,40 +137,93 @@ $('userDeposit').addEventListener("click", function () {
     getUserAccountInfo();
     // Get the ammoun that the user inputed in the text box
     let depAmount = parseFloat($('amount').value);
-    console.log(depAmount)
+    // console.log(depAmount)
+
     depositBalance(depAmount);
 
-    console.log("Hello this is the updated balance: "+updatedBalance)
     userArr.push(getToday(), "Deposit", depAmount, "", 0.00, updatedBalance)
     arr.push(userArr);
 
     //Clear out the temp storage array
     userArr = [];
-    
+
     appendRow(arr);
-    
+
 
 })
 
 $('userWithdraw').addEventListener("click", function () {
-    console.log("withdraw")
 
     getUserAccountInfo();
     // Get the ammoun that the user inputed in the text box
     let depAmount = parseFloat($('amount').value);
-    console.log(depAmount)
+
     withdrawBalance(depAmount);
 
-    console.log("Hello this is the updated balance: "+updatedBalance)
-    userArr.push(getToday(), "", 0.00, "Withdraw", depAmount , updatedBalance)
+    userArr.push(getToday(), "", 0.00, "Withdraw", depAmount, updatedBalance)
     arr.push(userArr);
 
     //Clear out the temp storage array
     userArr = [];
-    
+
     appendRow(arr);
-    
+
 
 })
 
+// Run the program---
+window.addEventListener('load', () => {
 
+    if (userSelection === "user1") {
+        $('userName').innerHTML = "John Doe";
+    } else {
+        $('userName').innerHTML = "Jane Doe";
+    }
+    getUserAccountInfo();
+
+    createRows(arr);
+
+});
+
+// (function myLoop(i) {
+//     setTimeout(function() {
+//       document.getElementById('bigCookie').click();               
+//       if (--i) myLoop(i);  
+//     }, 20)
+//   })(10000);                   
+
+
+// Simple closure 
+//  let passed = 3;
+
+// let addTo = function () {
+//     let inner = 2;
+//     return passed + inner;
+// }
+// console.dir(addTo);
+
+// More Advance Closure
+
+// let addTo = function (passed){
+//     let add = function (inner) {
+//         return passed + inner;
+//     }
+//     return add;
+// };
+
+// let addThree = new addTo(3);
+// let addFour = new addTo(-4);
+
+
+
+// function youSayGoodBye() {
+
+//     alert("Goodbye");
+
+//     function andISayHello() {
+//         alert("Hello");
+//     }
+//     return andISayHello;
+// }
+
+// let something = youSayGoodBye();
