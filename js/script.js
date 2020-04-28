@@ -119,6 +119,7 @@ function availBal() {
 function depositBalance(amount) {
     updatedBalance = arr[size - 1][5] + amount;
     availBal();
+    $('amount').value = "";
 
 }
 
@@ -126,15 +127,21 @@ function depositBalance(amount) {
 function withdrawBalance(amount) {
     updatedBalance = arr[size - 1][5] - amount;
     availBal();
+    $('amount').value = "";
+
 }
-
-
 
 // Event listeners for the Manage account feature
 
 $('userDeposit').addEventListener("click", function () {
 
-    getUserAccountInfo();
+    if ($('amount').value == "") {
+        console.log("Not accepting Blanks")
+    } else if (isNaN($('amount').value)) {
+        console.log("Not Accpepting Letters")
+        $('amount').value = "";
+    } else {
+        getUserAccountInfo();
     // Get the ammoun that the user inputed in the text box
     let depAmount = parseFloat($('amount').value);
     // console.log(depAmount)
@@ -150,9 +157,18 @@ $('userDeposit').addEventListener("click", function () {
     appendRow(arr);
 
 
+    }
+    
 })
 
 $('userWithdraw').addEventListener("click", function () {
+
+    if ($('amount').value == "") {
+        console.log("Not accepting Blanks")
+    } else if (isNaN($('amount').value)) {
+        console.log("Not Accpepting Letters")
+        $('amount').value = "";
+    } else {
 
     getUserAccountInfo();
     // Get the ammoun that the user inputed in the text box
@@ -168,7 +184,7 @@ $('userWithdraw').addEventListener("click", function () {
 
     appendRow(arr);
 
-
+    }
 })
 
 // Run the program---
