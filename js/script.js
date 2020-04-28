@@ -141,7 +141,7 @@ $('userDeposit').addEventListener("click", function () {
 
     depositBalance(depAmount);
 
-    userArr.push(getToday(), "Deposit", depAmount, "", 0.00, updatedBalance)
+    userArr.push(getToday(), "deposit", depAmount, "", 0.00, updatedBalance)
     arr.push(userArr);
 
     //Clear out the temp storage array
@@ -160,7 +160,7 @@ $('userWithdraw').addEventListener("click", function () {
 
     withdrawBalance(depAmount);
 
-    userArr.push(getToday(), "", 0.00, "Withdraw", depAmount, updatedBalance)
+    userArr.push(getToday(), "", 0.00, "withdraw", depAmount, updatedBalance)
     arr.push(userArr);
 
     //Clear out the temp storage array
