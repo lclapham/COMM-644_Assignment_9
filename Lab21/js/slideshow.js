@@ -13,10 +13,10 @@ var createSlideshow = function () {
         clearInterval(timer);
     };
     displayNextImage = function () {
+        img.counter += 1;
         if (img.counter === img.cache.length) {
             img.counter = 0;
-        } else {
-            img.counter += 1;
+        
         }
         var image = img.cache[img.counter];
         nodes.image.src = image.src;
@@ -32,7 +32,7 @@ var createSlideshow = function () {
     // PUBLIC METHODS THAT HAVE ACCESS TO PRIVATE VARIABLES AND FUNCTIONS
     return {
         setSpeed: function (speed) {
-            timer = setInterval(displayNextImage, speed);
+            timer = setInterval(displayNextImage, this.speed);
             return this;
         },
         loadImages: function (slides) {
@@ -71,9 +71,15 @@ var createSlideshow = function () {
             };
         },
         getUserChoice: function () {
-            let speed = parseInt(window.prompt("How fast?"));
+            let me = this;
+            return function(){
+                stopSlideShow();
+                  speed = parseInt(window.prompt("How fast?"));
+             me.startSlideShow();
+            console.log("Hello");
 
-            createSlideshow.startSlideShow;
+            }
+     
 
         }
     };
@@ -84,11 +90,11 @@ var $ = function (id) {
     return window.document.getElementById(id);
 };
 // Get user speed choice
-function getUserChoice() {
-    let speed = parseInt(window.prompt("How fast?"));
+// function getUserChoice() {
+//     let speed = parseInt(window.prompt("How fast?"));
 
-    createSlideshow.startSlideShow;
-}
+//     createSlideshow.startSlideShow;
+// }
 
 // CREATE THE SLIDESHOW OBJECT
 var slideshow = createSlideshow();
@@ -107,9 +113,8 @@ window.addEventListener("load", function () {
     // PAUSE THE SLIDESHOW
     $("play_pause").onclick = slideshow.createToggleHandler();
 
-    $('set_speed').addEventListener("click", function () {
-        getUserChoice();
-    })
+    $("set_speed").onclick = slideshow.getUserChoice();
+
 
 });
 
