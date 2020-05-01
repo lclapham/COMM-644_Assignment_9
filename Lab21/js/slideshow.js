@@ -16,7 +16,7 @@ var createSlideshow = function () {
         img.counter += 1;
         if (img.counter === img.cache.length) {
             img.counter = 0;
-        
+
         }
         var image = img.cache[img.counter];
         nodes.image.src = image.src;
@@ -72,15 +72,13 @@ var createSlideshow = function () {
         },
         getUserChoice: function () {
             let me = this;
-            return function(){
+            return function () {
                 stopSlideShow();
-                  speed = parseInt(window.prompt("How fast?"));
-             me.startSlideShow();
-            console.log("Hello");
+                speed = parseInt(window.prompt("How fast?"));
+                me.startSlideShow();
+                console.log("Hello");
 
             }
-     
-
         }
     };
 };
